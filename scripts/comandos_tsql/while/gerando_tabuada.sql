@@ -1,18 +1,18 @@
 
--- Gerando uma tabuada com WHILE
+-- GERANDO UMA TABUADA COM WHILE
 
-declare @tab int = 1
-declare @multiplicado int
-declare @resultado int
+DECLARE @TAB INT = 1
+DECLARE @MULTIPLICADO INT
+DECLARE @RESULTADO INT
 
-while(@tab <= 10)
-	begin
-		set @multiplicado = 1
-		while(@multiplicado <= 10)
-		begin
-			set @resultado = @tab * @multiplicado
-			print cast(@tab as nvarchar) + ' x ' + cast(@multiplicado as nvarchar) + ' = ' + cast(@resultado as nvarchar)
-			set @multiplicado = @multiplicado + 1
-		end
-		set @tab = @tab + 1
-	end
+WHILE(@TAB <= 10)
+BEGIN
+    SET @MULTIPLICADO = 1
+    WHILE(@MULTIPLICADO <= 10)
+    BEGIN
+        SET @RESULTADO = @TAB * @MULTIPLICADO
+        PRINT CAST(@TAB AS NVARCHAR) + ' X ' + CAST(@MULTIPLICADO AS NVARCHAR) + ' = ' + CAST(@RESULTADO AS NVARCHAR)
+        SET @MULTIPLICADO = @MULTIPLICADO + 1
+    END
+    SET @TAB = @TAB + 1
+END

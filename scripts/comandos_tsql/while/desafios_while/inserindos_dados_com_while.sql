@@ -1,60 +1,66 @@
--- Bloco para criar a tabela caso nao exista
-if object_id('Testes.tabuada', 'U') is not null
-	create table tabuada(
-		id int identity primary key,
-		multiplicando int,
-		operacao char(1) default('x'),
-		multiplicador int,
-		resultado int
-	)
+/*
+ESTE CÓDIGO SQL REALIZA AS SEGUINTES OPERAÇÕES:
 
-else
-	print 'Tabela existe'
+CRIAÇÃO DA TABELA TABUADA: VERIFICA SE A TABELA TABUADA NÃO EXISTE NO BANCO DE DADOS. CASO NÃO EXISTA, ELA É CRIADA COM COLUNAS PARA ARMAZENAR O MULTIPLICANDO, OPERAÇÃO, MULTIPLICADOR E RESULTADO.
 
--- Bloco para Truncar a tabela caso tenha dados
-declare @count int 
-set @count = (select count(*) from tabuada)
+TRUNCAMENTO DA TABELA: VERIFICA SE A TABELA CONTÉM DADOS. SE HOUVER, OS DADOS SÃO REMOVIDOS COM O COMANDO TRUNCATE TABLE. CASO CONTRÁRIO, EXIBE UMA MENSAGEM INDICANDO QUE A TABELA JÁ ESTAVA VAZIA.
 
-if (@count = 0)
-	print 'Tabela nao continha dados pare ser truncada'
-else
-	print 'Tabela truncada'
-	truncate table tabuada	
+PREPARAÇÃO PARA INSERÇÃO DE DADOS: DECLARA VARIÁVEIS PARA GERAR OS VALORES DA TABUADA (DE 1 A 10) E INICIA UM LOOP WHILE PARA INSERIR OS DADOS NA TABELA.
+*/
 
+-- BLOCO PARA CRIAR A TABELA CASO NAO EXISTA
+IF OBJECT_ID('TESTES.TABUADA', 'U') IS NOT NULL
+    CREATE TABLE TABUADA(
+        ID INT IDENTITY PRIMARY KEY,
+        MULTIPLICANDO INT,
+        OPERACAO CHAR(1) DEFAULT('X'),
+        MULTIPLICADOR INT,
+        RESULTADO INT
+    )
+ELSE
+    PRINT 'TABELA EXISTE'
 
--- Bloco para inserir dados na tabela caso esteja vazia
-declare @tabuada int = 1
-declare @multiplicado int
-declare @resultado int
+-- BLOCO PARA TRUNCAR A TABELA CASO TENHA DADOS
+DECLARE @COUNT INT 
+SET @COUNT = (SELECT COUNT(*) FROM TABUADA)
 
+IF (@COUNT = 0)
+    PRINT 'TABELA NAO CONTINHA DADOS PARA SER TRUNCADA'
+ELSE
+    PRINT 'TABELA TRUNCADA'
+    TRUNCATE TABLE TABUADA	
 
-while (@tabuada <= 10)
+-- BLOCO PARA INSERIR DADOS NA TABELA CASO ESTEJA VAZIA
+DECLARE @TABUADA INT = 1
+DECLARE @MULTIPLICADO INT
+DECLARE @RESULTADO INT
 
-	begin
-		set @multiplicado = 1
-		while(@multiplicado <= 10)
-			begin
-				set @resultado = @tabuada * @multiplicado
-				--print cast(@tabuada as nvarchar) + ' x ' + cast(@multiplicado as nvarchar) + ' = ' + cast(@resultado as nvarchar)
-				
-				insert into tabuada (
-					multiplicando,
-					multiplicador,
-					resultado
-				) values(
-					@tabuada,
-					@multiplicado,
-					@resultado
-				)
+WHILE (@TABUADA <= 10)
+BEGIN
+    SET @MULTIPLICADO = 1
+    WHILE(@MULTIPLICADO <= 10)
+    BEGIN
+        SET @RESULTADO = @TABUADA * @MULTIPLICADO
+        --PRINT CAST(@TABUADA AS NVARCHAR) + ' X ' + CAST(@MULTIPLICADO AS NVARCHAR) + ' = ' + CAST(@RESULTADO AS NVARCHAR)
 
-				set @multiplicado = @multiplicado + 1
-			end
-	set @tabuada = @tabuada + 1
-	end
+        INSERT INTO TABUADA (
+            MULTIPLICANDO,
+            MULTIPLICADOR,
+            RESULTADO
+        ) VALUES(
+            @TABUADA,
+            @MULTIPLICADO,
+            @RESULTADO
+        )
 
-select 
-	multiplicando,
-	multiplicador,
-	resultado
-from 
-	tabuada
+        SET @MULTIPLICADO = @MULTIPLICADO + 1
+    END
+    SET @TABUADA = @TABUADA + 1
+END
+
+SELECT 
+    MULTIPLICANDO,
+    MULTIPLICADOR,
+    RESULTADO
+FROM 
+    TABUADA

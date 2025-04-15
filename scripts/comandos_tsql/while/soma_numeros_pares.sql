@@ -1,13 +1,13 @@
--- Soma de numeros pares
+-- SOMA DE NUMEROS PARES
 
-declare @num int = 1
-declare @soma int = 0
-while(@num <= 1000)
-	begin
-		if(@num % 2 = 0)
-			set @soma = @soma + @num		
-		set @num = @num + 1
-	end
+DECLARE @NUM INT = 1
+DECLARE @SOMA INT = 0
 
+WHILE(@NUM <= 1000)
+BEGIN
+    IF(@NUM % 2 = 0)
+        SET @SOMA = @SOMA + @NUM
+    SET @NUM = @NUM + 1
+END
 
-print 'A soma de todos os numero pares de 1 a 100 e ' + cast(@soma as nvarchar)
+PRINT 'A SOMA DE TODOS OS NUMEROS PARES DE 1 A 1000 E ' + CAST(@SOMA AS NVARCHAR)
